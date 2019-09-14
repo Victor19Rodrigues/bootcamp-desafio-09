@@ -23,11 +23,11 @@ export default function Profile() {
 
         <hr />
 
-        <Input type="password" name="oldPassword" placeholder="Senha atual" />
-        <Input type="password" name="Password" placeholder="Nova senha" />
+        <Input type="password" name="old_password" placeholder="Senha atual" />
+        <Input type="password" name="password" placeholder="Nova senha" />
         <Input
           type="password"
-          name="confirmPassword"
+          name="password_confirmation"
           placeholder="Confirmação de senha"
         />
 

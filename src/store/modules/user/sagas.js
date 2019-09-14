@@ -11,7 +11,7 @@ export function* updateProfile({ payload }) {
 
     const profile = Object.assign(
       { name, email },
-      rest.oldPassword ? rest : {}
+      rest.old_password ? rest : {}
     );
 
     const response = yield call(api.put, "users", profile);
