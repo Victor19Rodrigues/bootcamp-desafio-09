@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdAddCircleOutline, MdChevronRight } from "react-icons/md";
+import { format } from "date-fns";
+import pt from "date-fns/locale/pt";
 
 import api from "~/services/api";
+import history from "~/services/history";
 
 import { Container, Time, Scroll } from "./styles";
 
 export default function Dashboard() {
+  const [meetapp, setMeetapp] = useState([]);
+
+  useEffect(() => {
+    async function loadMeetapp() {
+      const response = await api.get("meetups");
+
+      const responseMeetapp = response.data.map(data => {
+        return {
+          time: format(new Date(data.date), "d 'de' MMMM', às ' HH'h'", {
+            locale: pt
+          }),
+          past: data.past,
+          meetapp: data
+        };
+      });
+
+      setMeetapp(responseMeetapp);
+    }
+
+    loadMeetapp();
+  }, [meetapp]);
+
+  function handleSubmit(value) {
+    history.push("/detail", { meetapp: value });
+  }
+
   return (
     <Container>
       <header>
@@ -18,69 +47,19 @@ export default function Dashboard() {
 
       <ul>
         <Scroll>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
-          <Time past available>
-            <strong>Titulo Meetup</strong>
-            <button type="button">
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={25} color="#fff" />
-            </button>
-          </Time>
+          {meetapp.map(value =>
+            !value.past ? (
+              <Time key={value.meetapp.id} past={value.past}>
+                <strong>{value.meetapp.title}</strong>
+                <button type="button" onClick={() => handleSubmit(value)}>
+                  <span>{value.time}</span>
+                  <MdChevronRight size={25} color="#fff" />
+                </button>
+              </Time>
+            ) : (
+              <></>
+            )
+          )}
         </Scroll>
       </ul>
     </Container>

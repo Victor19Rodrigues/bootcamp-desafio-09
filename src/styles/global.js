@@ -18,12 +18,13 @@ export default createGlobalStyle`
     }
 
     html, body, #root {
-        height: 100%;
-        background: linear-gradient(#25222e, #402845);
+        height: auto;
+        min-height: 100%;
     }
 
     body {
         -webkit-font-smoothing: antialiased;
+        background: linear-gradient(#25222e, #402845);
     }
 
     body, input, button {
