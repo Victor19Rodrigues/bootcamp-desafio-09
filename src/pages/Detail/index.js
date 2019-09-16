@@ -7,20 +7,33 @@ import { Container } from "./styles";
 
 export default function Detail() {
   const informationMeetapp = history.location.state.meetapp.meetapp;
+
   const { time } = history.location.state.meetapp;
 
-  console.tron.log(history.location);
+  function handleEdit(value) {
+    history.push("/edit", { meetapp: value });
+  }
+
+  function handleDelete() {}
 
   return (
     <Container>
       <header>
         <strong>{informationMeetapp.title}</strong>
         <div>
-          <button className="edit-button" type="submit">
+          <button
+            className="edit-button"
+            type="submit"
+            onClick={() => handleEdit(informationMeetapp)}
+          >
             <MdModeEdit color="#fff" size={20} />
             <p>Editar</p>
           </button>
-          <button className="delete-button" type="submit">
+          <button
+            className="delete-button"
+            type="submit"
+            onClick={handleDelete}
+          >
             <MdDeleteForever color="#fff" size={20} />
             <p>Cancelar</p>
           </button>

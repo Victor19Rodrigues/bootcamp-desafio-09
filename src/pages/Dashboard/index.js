@@ -35,11 +35,15 @@ export default function Dashboard() {
     history.push("/detail", { meetapp: value });
   }
 
+  function handleSubmitNewMeetapp() {
+    history.push("/edit");
+  }
+
   return (
     <Container>
       <header>
         <strong>Meus meetups</strong>
-        <button type="submit">
+        <button type="submit" onClick={handleSubmitNewMeetapp}>
           <MdAddCircleOutline color="#fff" size={20} />
           <p>Novo meetup</p>
         </button>
