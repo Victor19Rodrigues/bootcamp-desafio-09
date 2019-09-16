@@ -1,20 +1,27 @@
 import React from "react";
 import { MdDeleteForever, MdModeEdit, MdEvent, MdPlace } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 import history from "~/services/history";
+import { deleteMeetappRequest } from "~/store/modules/meetapp/actions";
 
 import { Container } from "./styles";
 
 export default function Detail() {
+  const dispatch = useDispatch();
+
   const informationMeetapp = history.location.state.meetapp.meetapp;
 
   const { time } = history.location.state.meetapp;
 
   function handleEdit(value) {
+    value.isEdit = true;
     history.push("/edit", { meetapp: value });
   }
 
-  function handleDelete() {}
+  function handleDelete(id) {
+    dispatch(deleteMeetappRequest(id));
+  }
 
   return (
     <Container>
@@ -32,7 +39,7 @@ export default function Detail() {
           <button
             className="delete-button"
             type="submit"
-            onClick={handleDelete}
+            onClick={() => handleDelete(informationMeetapp.id)}
           >
             <MdDeleteForever color="#fff" size={20} />
             <p>Cancelar</p>

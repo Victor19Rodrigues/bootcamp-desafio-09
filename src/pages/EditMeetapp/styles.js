@@ -54,7 +54,8 @@ export const Container = styled.div`
       width: 150px;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-self: flex-end;
+      display: flex;
       height: 42px;
       margin: 10px 0 0;
       background: #d44059;

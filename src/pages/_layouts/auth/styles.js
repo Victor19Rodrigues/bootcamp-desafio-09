@@ -3,6 +3,8 @@ import { darken } from "polished";
 
 export const Wrapper = styled.div`
   display: flex;
+  height: 600px;
+  min-height: 100%;
   justify-content: center;
   align-items: center;
 `;

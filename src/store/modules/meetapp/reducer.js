@@ -11,14 +11,14 @@ export default function meetapp(state = INITIAL_STATE, action) {
         draft.meetapp = action.payload.meetapp;
         break;
       }
-      //   case "@user/UPDATE_PROFILE_SUCCESS": {
-      //     draft.profile = action.payload.profile;
-      //     break;
-      //   }
-      //   case "@meetapp/SIGN_OUT": {
-      //     draft.profile = null;
-      //     break;
-      //   }
+      case "@meetapp/EDIT_MEETAPP_SUCCESS": {
+        draft.meetapp = action.payload.meetapp;
+        break;
+      }
+      case "@user/DELETE_MEETAPP_SUCCESS": {
+        draft.meetapp = null;
+        break;
+      }
 
       default:
     }

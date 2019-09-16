@@ -8,7 +8,6 @@ import { Container } from "./styles";
 
 export default function Meetapp() {
   const { defaultValue, registerField } = useField("File");
-
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 

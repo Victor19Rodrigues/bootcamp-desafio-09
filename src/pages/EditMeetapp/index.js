@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form, Input } from "@rocketseat/unform";
 import { MdAddCircleOutline } from "react-icons/md";
 
-import { createMeetappRequest } from "~/store/modules/meetapp/actions";
+import {
+  createMeetappRequest,
+  editMeetappRequest
+} from "~/store/modules/meetapp/actions";
 
 import Meetapp from "./MeetappInput";
 import DatePicker from "./Datepicker";
@@ -14,11 +17,23 @@ import { Container } from "./styles";
 
 export default function EditMeetapp() {
   const dispatch = useDispatch();
-  console.tron.log(useSelector(state => state));
-  const meetapp =
-    useSelector(state => state.user.meetapp) || history.location.state.meetapp;
+  let meetapp = {};
+
+  meetapp = useSelector(state => state.user.meetapp);
+  meetapp = {
+    isEdit: false
+  };
+
+  if (history.location.state !== undefined) {
+    meetapp = history.location.state.meetapp; // eslint-disable-line
+  }
 
   function handleSubmit(data) {
+    if (meetapp.isEdit) {
+      data.id = meetapp.id;
+      dispatch(editMeetappRequest(data));
+      return;
+    }
     dispatch(createMeetappRequest(data));
   }
 
